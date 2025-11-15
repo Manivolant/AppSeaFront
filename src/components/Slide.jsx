@@ -10,7 +10,7 @@ function Slide({
   listdownloads_updator,
 }) {
   return (
-    <div className="inline-block w-full h-60 rounded-lg snap-center mx-2 my-1 shadow-xl">
+    <div className="inline-block w-full overflow-hidden h-80 rounded-lg snap-center mx-2 my-1 shadow-xl">
       <AppC
         key={crypto.randomUUID()}
         name={applications[index].name}

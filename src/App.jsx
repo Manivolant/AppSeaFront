@@ -4,50 +4,18 @@ import Header from "./components/Header";
 import { Route, Routes } from "react-router";
 import Downloads from "./pages/Downloads";
 import Sliders from "./components/Sliders";
-
+import About from "./pages/About";
+import axios from "axios";
+// {
+//       downloading: false,
+//       selected: false,
+//       name: "VsCode",
+//       comName: "Microsoft",
+//       description:
+//         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cumque voluptatum vel corrupti officiis autem quam incidunt architecto sit quo aspernatur velit eveniet distinctio, praesentium voluptates mollitia excepturi possimus deserunt dolorem. Laudantium quod placeat voluptatum quia quisquam amet provident ratione dolore! Autem veniam perspiciatis rem sequi eos quo, aperiam maxime!",
+// },
 function App() {
-  const [applications, setapplications] = useState([
-    {
-      downloading: false,
-      selected: false,
-      name: "VsCode",
-      comName: "Microsoft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cumque voluptatum vel corrupti officiis autem quam incidunt architecto sit quo aspernatur velit eveniet distinctio, praesentium voluptates mollitia excepturi possimus deserunt dolorem. Laudantium quod placeat voluptatum quia quisquam amet provident ratione dolore! Autem veniam perspiciatis rem sequi eos quo, aperiam maxime!",
-    },
-    {
-      downloading: false,
-      selected: false,
-      name: "VsCode",
-      comName: "Microsoft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cumque voluptatum vel corrupti officiis autem quam incidunt architecto sit quo aspernatur velit eveniet distinctio, praesentium voluptates mollitia excepturi possimus deserunt dolorem. Laudantium quod placeat voluptatum quia quisquam amet provident ratione dolore! Autem veniam perspiciatis rem sequi eos quo, aperiam maxime!",
-    },
-    {
-      downloading: true,
-      selected: false,
-      name: "VsCode",
-      comName: "Microsoft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cumque voluptatum vel corrupti officiis autem quam incidunt architecto sit quo aspernatur velit eveniet distinctio, praesentium voluptates mollitia excepturi possimus deserunt dolorem. Laudantium quod placeat voluptatum quia quisquam amet provident ratione dolore! Autem veniam perspiciatis rem sequi eos quo, aperiam maxime!",
-    },
-    {
-      downloading: true,
-      selected: false,
-      name: "VsCode",
-      comName: "Microsoft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cumque voluptatum vel corrupti officiis autem quam incidunt architecto sit quo aspernatur velit eveniet distinctio, praesentium voluptates mollitia excepturi possimus deserunt dolorem. Laudantium quod placeat voluptatum quia quisquam amet provident ratione dolore! Autem veniam perspiciatis rem sequi eos quo, aperiam maxime!",
-    },
-    {
-      downloading: true,
-      selected: false,
-      name: "VsCode",
-      comName: "Microsoft",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, cumque voluptatum vel corrupti officiis autem quam incidunt architecto sit quo aspernatur velit eveniet distinctio, praesentium voluptates mollitia excepturi possimus deserunt dolorem. Laudantium quod placeat voluptatum quia quisquam amet provident ratione dolore! Autem veniam perspiciatis rem sequi eos quo, aperiam maxime!",
-    },
-  ]);
+  const [applications, setapplications] = useState([]);
   const [num, setnum] = useState(() => {
     let count = 0;
     applications.map((value) => {
@@ -89,6 +57,26 @@ function App() {
       document.body.classList.remove("bg-black");
     }
   }, [dark]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/Apps");
+        console.log(response.data);
+        const dataForReturn = response.data.map((value) => ({
+          downloading: false,
+          selected: false,
+          id: value.id,
+          name: value.name,
+          comName: value.developer,
+          description: value.description,
+        }));
+        setapplications(dataForReturn);
+      } catch (error) {
+        console.error("Fetch error:", error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <Routes>
       <Route
@@ -96,14 +84,16 @@ function App() {
         element={
           <>
             <Header num={num} dark={dark} setdark={setdark} />
-            <Sliders
-              applications={applications}
-              setapplications={setapplications}
-              num={num}
-              setnum={setnum}
-              dark={dark}
-              listdownloads_updator={listdownloads_updator}
-            />
+            {applications.length != 0 && (
+              <Sliders
+                applications={applications}
+                setapplications={setapplications}
+                num={num}
+                setnum={setnum}
+                dark={dark}
+                listdownloads_updator={listdownloads_updator}
+              />
+            )}
             <Apps
               applications={applications}
               setapplications={setapplications}
@@ -128,6 +118,7 @@ function App() {
         element={
           <>
             <Header num={num} dark={dark} setdark={setdark} />
+            <About dark={dark} />
           </>
         }
       />

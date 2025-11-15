@@ -9,7 +9,7 @@ function Apps({
   listdownloads_updator,
 }) {
   return (
-    <div className="w-full px-20 py-3 gap-3 grid grid-cols-3 transition-all ease-in-out">
+    <div className="w-full px-5 sm:px-20 py-3 gap-3 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 transition-all ease-in-out">
       {applications.map((value, index) => {
         return (
           <AppC

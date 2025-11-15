@@ -43,10 +43,12 @@ function Sliders({
     return () => clearInterval(interval);
   }, []);
   return (
-    <div className="px-20 flex flex-row justify-center items-center gap-3">
+    <div className="px-20 flex-row justify-center items-center gap-3 hidden md:flex">
       <button
         onClick={goToleft}
-        className="w-7 rotate-180 opacity-35 hover:opacity-100 cursor-pointer transition-all ease-in-out"
+        className={`w-7 rotate-180 opacity-35 hover:opacity-100 cursor-pointer transition-all ease-in-out ${
+          dark == true && "invert"
+        }`}
       >
         <img src={arrow} />
       </button>
@@ -63,7 +65,7 @@ function Sliders({
           setnum={setnum}
           dark={dark}
           listdownloads_updator={listdownloads_updator}
-          index={1}
+          index={0}
         />
         <Slide
           applications={applications}
@@ -72,7 +74,7 @@ function Sliders({
           setnum={setnum}
           dark={dark}
           listdownloads_updator={listdownloads_updator}
-          index={2}
+          index={0}
         />
         <Slide
           applications={applications}
@@ -81,13 +83,15 @@ function Sliders({
           setnum={setnum}
           dark={dark}
           listdownloads_updator={listdownloads_updator}
-          index={3}
+          index={0}
         />
       </div>
 
       <button
         onClick={goToright}
-        className="w-7 opacity-35 hover:opacity-100 cursor-pointer transition-all ease-in-out"
+        className={`w-7 opacity-35 hover:opacity-100 cursor-pointer transition-all ease-in-out ${
+          dark == true && "invert"
+        }`}
       >
         <img src={arrow} />
       </button>

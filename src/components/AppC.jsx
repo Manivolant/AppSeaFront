@@ -158,7 +158,7 @@ function AppC({
         )}
       </div>
       {show == true && (
-        <div className={`p-2 ${show == true && "px-52"}`}>
+        <div className={`p-2 ${show == true && "px-5 md:px-52"}`}>
           <p
             className={`transition-all ease-in-out text-wrap ${
               dark == true && show == false && "hover:text-neutral-600"

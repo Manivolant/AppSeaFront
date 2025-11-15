@@ -1,9 +1,13 @@
 import { NavLink } from "react-router";
 
-function NavlinkHeader({ text, to, dark, inText }) {
+function NavlinkHeader({ text, to, dark, inText, isMenuButton }) {
+  function handelClick(event) {
+    event.stopPropagation();
+  }
   return (
     <NavLink
       to={to}
+      onClick={handelClick}
       className={({ isActive }) => {
         return isActive || inText
           ? `transition-all ease-in-out text-blue-600 relative`
@@ -18,8 +22,14 @@ function NavlinkHeader({ text, to, dark, inText }) {
             {text}
             <div
               className={`${
-                isActive || inText ? "w-full" : "w-0"
-              } h-0.5 bg-blue-600 absolute left-1/2 bottom-0 -translate-x-1/2 transition-all ease-in-out`}
+                isActive || inText
+                  ? `${isMenuButton ? "w-0.5" : "w-full"}`
+                  : "w-0"
+              } bg-blue-600 absolute ${
+                isMenuButton
+                  ? "left-0 top-0 h-full -translate-x-2"
+                  : "left-1/2 bottom-0 h-0.5"
+              } -translate-x-1/2 transition-all ease-in-out`}
             ></div>
           </>
         );

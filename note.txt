@@ -1,3 +1,5 @@
 button (controller buttons) plays some music
 games feild have rgb effects
 some music when user click's on buttons on top left
+
+[*] slider bold and big text's
